@@ -19,22 +19,25 @@ var controller = {
 
 // attendance view
 var view = {
-    tbody: document.getElementById('table-content'),
+    table: document.getElementById('t-attendance'),
+    thead: document.querySelector('#t-attendance thead'),
+    tbody: document.querySelector('#t-attendance tbody'),
     students: document.getElementsByClassName('student'),
+    checkboxes: document.getElementsByClassName('checkbox'),
     init: function() {
-        let studentList = controller.returnStudentList()
-        let container = document.createDocumentFragment()
-        let row = 1
+        let studentList = controller.returnStudentList(),
+            container = document.createDocumentFragment(),
+            row = 1
         for (let student of studentList) {
-            let newTr = document.createElement('tr')
-            let newTd = document.createElement('td')
+            let newTr = document.createElement('tr'),
+                newTd = document.createElement('td')
             newTr.className = 'student'
             newTd.textContent = student
             newTd.className = 'name-col'
             newTr.appendChild(newTd)
             for (let column = 1; column <= 12; column++) {
-                let newTd = document.createElement('td')
-                let newCheck = document.createElement('input')
+                let newTd = document.createElement('td'),
+                    newCheck = document.createElement('input')
                 newCheck.type = 'checkbox'
                 newCheck.addEventListener('click', function() {
                     view.render()
@@ -55,8 +58,8 @@ var view = {
     render: function() {
         let nrow = 1
         for (let row of this.students) {
-            let checksInRow = document.getElementsByClassName('row' + nrow)
-            let totalDays = 0
+            let checksInRow = document.getElementsByClassName('row' + nrow),
+                totalDays = 0
             for (let check of checksInRow) {
                 if (check.firstElementChild.checked) {
                     totalDays++
